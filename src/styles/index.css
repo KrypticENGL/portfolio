@@ -1,9 +1,18 @@
 @import 'tailwindcss';
+@import './phases.css';
+@import './skills.css';
+@import './work.css';
+@import './contact.css';
 
 @theme {
   --font-sans: 'Geist Variable', ui-sans-serif, system-ui, sans-serif;
   --color-paper: #f4f4f2;
   --color-ink: #0b0b0b;
+  --font-mono: 'Geist Mono Variable', ui-monospace, monospace;
+}
+
+:root {
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 html {
@@ -14,3 +23,22 @@ html {
   text-rendering: optimizeLegibility;
   font-feature-settings: 'kern', 'liga', 'ss01';
 }
+
+/* ---- Scroll reveal (armed by useReveal; content is visible by default) ---- */
+.rv {
+  transition:
+    opacity 0.8s var(--ease),
+    transform 0.9s var(--ease),
+    clip-path 1.1s var(--ease);
+  transition-delay: calc(var(--i, 0) * 90ms);
+}
+[data-reveal='wait'] .rv {
+  opacity: 0;
+  transform: translateY(14px);
+}
+[data-reveal='wait'] .rv-mask {
+  transform: translateY(10px);
+  clip-path: inset(0 0 100% 0 round 6px);
+}
+.rv-mask { clip-path: inset(0 0 0 0 round 6px); }
+

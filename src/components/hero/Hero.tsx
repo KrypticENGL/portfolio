@@ -1,9 +1,13 @@
+'use client'
+
 import { useCallback, useRef } from 'react'
-import { motion } from 'motion/react'
+import { MotionConfig, motion } from 'motion/react'
 import { AnimatedWords } from './AnimatedWords'
-import { DotMatrixRipple, type RippleFn } from './DotMatrixRipple'
+import { DotMatrixWater, type WaterAPI } from './DotMatrixWater'
 import { Portrait } from './Portrait'
-import { DOTS, EASE, TIMING } from './config'
+import { EASE, TIMING } from './config'
+import type { PhaseEvent } from './timeline'
+import { usePhaseAnimation } from './usePhaseAnimation'
 
 const HEADING: { text: string; className: string }[] = [
   { text: 'From', className: '' },
@@ -13,23 +17,27 @@ const HEADING: { text: string; className: string }[] = [
 ]
 
 export function Hero() {
-  const ripple = useRef<RippleFn | null>(null)
-  const wordsRef = useRef<HTMLDivElement>(null)
+  const water = useRef<WaterAPI | null>(null)
+  const illRef = useRef<HTMLDivElement | null>(null)
 
-  // "Deploy" sends one quiet pulse through the dot field from behind the word.
-  const onWord = useCallback((w: string) => {
-    const el = wordsRef.current
-    if (w !== 'Deploy' || !el || !ripple.current) return
+  // Phase events (keystrokes, hammer hits, test scan, deploy swell) disturb the water
+  // at the matching point of the current illustration card.
+  const onEvent = useCallback((e: PhaseEvent) => {
+    const el = illRef.current
+    if (!el || !water.current) return
     const r = el.getBoundingClientRect()
-    ripple.current(r.left + r.height * 1.6, r.top + r.height / 2, DOTS.amp.pulse)
+    water.current.impulse(e.kind, r.left + e.fx * r.width, r.top + e.fy * r.height, e.amp)
   }, [])
+  const step = usePhaseAnimation(TIMING.firstWord, onEvent)
 
   return (
+    // reducedMotion="user": transforms are dropped, opacity fades remain
+    <MotionConfig reducedMotion="user">
     <section
       aria-label="Introduction"
       className="relative isolate grid min-h-svh grid-cols-1 grid-rows-[auto_1fr] lg:grid-rows-1 overflow-hidden bg-paper px-[7vw] lg:h-svh lg:grid-cols-[58fr_42fr]"
     >
-      <DotMatrixRipple apiRef={ripple} />
+      <DotMatrixWater apiRef={water} />
 
       <div className="relative z-10 flex flex-col justify-center pt-[14svh] pb-10 lg:py-0">
         <h1 className="text-[clamp(1.9rem,3.6vw,3.75rem)] leading-[1.05] font-medium tracking-[-0.035em]">
@@ -48,8 +56,8 @@ export function Hero() {
           ))}
         </h1>
 
-        <div ref={wordsRef} className="mt-[clamp(0.75rem,2.2vh,1.75rem)] -ml-[0.04em]">
-          <AnimatedWords onWord={onWord} />
+        <div className="mt-[clamp(0.75rem,2.2vh,1.75rem)] -ml-[0.04em]">
+          <AnimatedWords step={step} illRef={illRef} />
         </div>
 
         <motion.div
@@ -71,5 +79,6 @@ export function Hero() {
         <Portrait />
       </div>
     </section>
+    </MotionConfig>
   )
 }
