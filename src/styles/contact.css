@@ -1,103 +1,130 @@
-/* 05 / Contact. */
-
-/* Headline lines rise out of a mask; armed by useReveal like every other .rv */
-.ct-line {
-  display: block;
+﻿.ct-scene {
+  position: relative;
+  isolation: isolate;
   overflow: hidden;
-  padding-bottom: 0.08em; /* keep descenders inside the mask */
+  padding-inline: 7vw;
+  background: var(--color-paper);
 }
-.ct-line-in {
-  display: block;
-  transition: transform 1.15s var(--ease) calc(0.12s + var(--d, 0s));
+.ct-surface {
+  mask-image: linear-gradient(90deg, transparent, #0004 35%, #000 76%),
+    linear-gradient(transparent 10%, black 32%, black 70%, transparent 99%);
+  mask-composite: intersect;
 }
-[data-reveal='wait'] .ct-line-in { transform: translateY(108%); }
-
-/* Email: the call to action */
+.ct-content {
+  position: relative;
+  padding-block: clamp(3.5rem, 9vh, 7rem) clamp(2rem, 5vh, 4rem);
+  border-top: 1px solid #0b0b0b22;
+}
+.ct-label {
+  font: .75rem var(--font-mono);
+  letter-spacing: .14em;
+  color: #50504f;
+}
+.ct-title {
+  margin-top: clamp(2rem, 4vh, 4rem);
+  font-size: clamp(2rem, 9.6vw, 10rem);
+  font-weight: 580;
+  letter-spacing: -.068em;
+  line-height: .98;
+}
+.ct-line { display: block; overflow: hidden; padding-bottom: .09em; }
+.ct-line-in { display: block; transition: transform .95s var(--ease); }
+.ct-line + .ct-line { color: #585855; margin-top: -.06em; }
+.ct-line + .ct-line .ct-line-in { transition-delay: .14s; }
+[data-reveal='wait'] .ct-line-in { transform: translateY(110%); }
+.ct-description {
+  margin-top: clamp(1.25rem, 3vh, 2.5rem);
+  max-width: 36ch;
+  color: #454543;
+  font-size: clamp(1rem, 1.4vw, 1.25rem);
+  line-height: 1.42;
+}
+.ct-address {
+  display: flex;
+  align-items: center;
+  gap: clamp(.25rem, 1.8vw, 2rem);
+  margin-block: clamp(3rem, 9vh, 7rem) 1rem;
+}
 .ct-email {
   display: inline-flex;
   align-items: center;
-  gap: 0.25em;
+  min-height: 44px;
   min-width: 0;
-  max-width: 100%;
-  font-size: clamp(1.35rem, 4vw, 3.1rem);
-  font-weight: 500;
-  letter-spacing: -0.035em;
-  line-height: 1.15;
-  color: var(--color-ink);
-  text-decoration: none;
+  font-size: clamp(1.125rem, 4.65vw, 5rem);
+  font-weight: 480;
+  letter-spacing: -.052em;
+  line-height: 1.22;
 }
 .ct-email-text {
-  min-width: 0;
   overflow-wrap: anywhere;
-  padding-bottom: 0.06em;
-  background:
-    linear-gradient(var(--color-ink), var(--color-ink)) left 100% / 0 1.5px no-repeat,
-    linear-gradient(rgba(11, 11, 11, 0.14), rgba(11, 11, 11, 0.14)) left 100% / 100% 1px no-repeat;
-  transition: background-size 0.55s var(--ease);
+  background: linear-gradient(currentColor, currentColor) left bottom / 0 2px no-repeat;
+  transition: background-size .5s var(--ease);
 }
 .ct-email-arrow {
   flex: none;
-  width: 0.62em;
-  height: 0.62em;
-  transition: transform 0.4s var(--ease);
+  width: .62em;
+  height: .62em;
+  margin-left: .22em;
+  transition: transform .35s var(--ease);
 }
-.ct-email:hover .ct-email-text,
-.ct-email:focus-visible .ct-email-text { background-size: 100% 1.5px, 100% 1px; }
-.ct-email:hover .ct-email-arrow,
-.ct-email:focus-visible .ct-email-arrow { transform: translate(4px, -4px); }
-.ct-email:focus-visible { outline: 1.5px solid var(--color-ink); outline-offset: 6px; border-radius: 2px; }
-
+.ct-email:is(:hover,:focus-visible) .ct-email-text { background-size: 100% 2px; }
+.ct-email:is(:hover,:focus-visible) .ct-email-arrow { transform: translate(3px,-3px); }
 .ct-copy {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  height: 2.4rem;
-  padding: 0 0.9rem;
-  border: 1px solid rgba(11, 11, 11, 0.16);
-  border-radius: 999px;
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  color: #3a3a38;
+  position: relative;
+  display: inline-grid;
+  flex: none;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid #aaa9a6;
+  border-radius: 50%;
+  color: #373735;
+  background: var(--color-paper);
   cursor: pointer;
-  transition: border-color 0.2s, background-color 0.2s, color 0.2s;
+  transition: background-color .2s, color .2s;
 }
-.ct-copy svg { width: 0.9rem; height: 0.9rem; }
-.ct-copy:hover { border-color: var(--color-ink); background: #fbfbfa; }
-.ct-copy:focus-visible { outline: 1.5px solid var(--color-ink); outline-offset: 2px; }
-.ct-copy[data-state='copied'] { border-color: #4e7a5a; color: #4e7a5a; }
-
-/* Phone and socials */
-.ct-link,
-.ct-social {
-  color: var(--color-ink);
-  text-decoration: none;
-  background: linear-gradient(currentColor, currentColor) left 100% / 0 1px no-repeat;
-  transition: background-size 0.4s var(--ease), color 0.2s;
+.ct-copy svg { width: 16px; height: 16px; }
+.ct-copy > span {
+  position: absolute;
+  bottom: calc(100% + .25rem);
+  font: .75rem var(--font-mono);
+  white-space: nowrap;
+  opacity: 0;
 }
-.ct-link { display: inline-flex; align-items: center; min-height: 2.75rem; user-select: text; background-position: left 80%; }
-.ct-social {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.55rem;
-  min-height: 2.75rem; /* comfortable tap target */
-  font-size: 1.0625rem;
-  letter-spacing: -0.01em;
-  background-position: 1.65rem 85%;
+.ct-copy:is(:hover,:focus-visible) > span,
+.ct-copy:not([data-state='idle']) > span { opacity: 1; color: var(--color-ink); }
+.ct-copy:hover, .ct-copy[data-state='copied'] { background: var(--color-ink); color: white; }
+.ct-directory, .ct-profiles, .ct-social, .ct-link { display: flex; align-items: center; }
+.ct-directory {
+  justify-content: space-between;
+  flex-wrap: wrap;
+  column-gap: 2rem;
+  border-top: 1px solid #0b0b0b33;
+  padding-top: .6rem;
 }
-.ct-link:hover,
-.ct-social:hover { background-size: 100% 1px; }
-.ct-social:hover { background-size: calc(100% - 1.65rem) 1px; }
-.ct-link:focus-visible,
-.ct-social:focus-visible { outline: 1.5px solid var(--color-ink); outline-offset: 3px; border-radius: 2px; }
-.ct-mono-icon {
-  width: 1.1rem;
-  height: 1.1rem;
-  background: currentColor;
-  mask: var(--icon) center / contain no-repeat;
-  transition: transform 0.3s var(--ease);
+.ct-profiles { gap: 1.5rem; }
+.ct-social, .ct-link { min-height: 44px; gap: .5rem; font-size: 1rem; }
+.ct-link { user-select: text; }
+.ct-mono-icon { width: 1rem; height: 1rem; filter: grayscale(1) brightness(.45); }
+.ct-social:hover, .ct-link:hover { text-decoration: underline; text-underline-offset: .25em; }
+.ct-content :focus-visible { outline: 2px solid var(--color-ink); outline-offset: 3px; }
+@media (max-width: 38rem) {
+  .ct-content {
+    min-height: calc(100svh - 6rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .ct-label { margin-bottom: auto; }
+  .ct-title { font-size: clamp(2rem, 11.35vw, 4rem); }
+  .ct-email { font-size: clamp(1rem, 5.15vw, 2rem); }
+  .ct-description { max-width: 29ch; }
+  .ct-address { justify-content: space-between; margin-top: auto; padding-top: 3rem; }
+  .ct-directory { column-gap: 1rem; }
+  .ct-profiles { gap: 1rem; }
 }
-.ct-social:hover .ct-mono-icon { transform: translateY(-1px); }
-
 @media (prefers-reduced-motion: reduce) {
-  .ct-line-in, .ct-email-text, .ct-email-arrow, .ct-link, .ct-social, .ct-mono-icon { transition: none; }
+  #contact[data-reveal='wait'] .ct-line-in,
+  .ct-email:is(:hover,:focus-visible) .ct-email-arrow { transform: none; }
+  .ct-line-in, .ct-copy, .ct-email-text, .ct-email-arrow { transition: none; }
 }

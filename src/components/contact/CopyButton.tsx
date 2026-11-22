@@ -2,20 +2,26 @@ import { useEffect, useRef, useState } from 'react'
 import { Check, Copy } from 'lucide-react'
 
 async function copyText(text: string) {
+  if (navigator.clipboard?.writeText) {
+    try {
+      await navigator.clipboard.writeText(text)
+      return true
+    } catch {
+      // Some embedded browsers allow selection-based copy only.
+    }
+  }
+  const previousFocus = document.activeElement
+  const field = Object.assign(document.createElement('textarea'), { value: text, readOnly: true })
+  field.style.cssText = 'position:fixed;inset:0 auto auto 0;opacity:0'
+  document.body.append(field)
   try {
-    // A pending permission prompt can leave writeText unsettled; don't leave the visitor without feedback.
-    const timeout = new Promise<never>((_, reject) => setTimeout(() => reject(new Error('timeout')), 1000))
-    await Promise.race([navigator.clipboard.writeText(text), timeout])
-    return true
+    field.select()
+    return document.execCommand('copy')
   } catch {
-    // Clipboard API missing, denied or stalled: fall back to a hidden selection.
-    const ta = Object.assign(document.createElement('textarea'), { value: text, readOnly: true })
-    ta.style.cssText = 'position:fixed;opacity:0'
-    document.body.append(ta)
-    ta.select()
-    const ok = document.execCommand('copy')
-    ta.remove()
-    return ok
+    return false
+  } finally {
+    field.remove()
+    if (previousFocus instanceof HTMLElement) previousFocus.focus({ preventScroll: true })
   }
 }
 

@@ -32,8 +32,10 @@ export function DotMatrixWater({ apiRef, mode = 'hero', mask = HERO_MASK }: Prop
 
   useEffect(() => {
     const canvas = canvasRef.current!
-    const ctx = canvas.getContext('2d')!
-    const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches
+    const ctx = canvas.getContext('2d')
+    if (!ctx) return
+    const motionPreference = matchMedia('(prefers-reduced-motion: reduce)')
+    let reduced = motionPreference.matches
     const coarse = matchMedia('(pointer: coarse)').matches
     const waves = WATER.waves.map((w, i) => {
       const k = TAU / w.l, rad = (w.dir * Math.PI) / 180
@@ -48,6 +50,7 @@ export function DotMatrixWater({ apiRef, mode = 'hero', mask = HERO_MASK }: Prop
     // sin/cos of the x-part per (wave, column) are fixed per layout; y/t part per frame per row.
     let colS = new Float32Array(0), colC = new Float32Array(0)
     let rowS = new Float32Array(0), rowC = new Float32Array(0)
+    let horizon = new Float32Array(0)
     let raf = 0, last = 0, slow = 0, cost = 0
     // pointer (client coords), smoothed cursor (canvas coords), bulge strength, last move time
     let px = 0, py = 0, cx = 0, cy = 0, hover = 0, moved = -1e9
@@ -62,6 +65,12 @@ export function DotMatrixWater({ apiRef, mode = 'hero', mask = HERO_MASK }: Prop
       pitch = Math.max(coarse ? WATER.spacingTouch : WATER.spacing, Math.sqrt((w * h) / WATER.maxDots))
       cols = Math.ceil(w / pitch) + 1
       rows = Math.ceil(h / pitch) + 1
+      if (mode === 'calm') {
+        horizon = Float32Array.from({ length: cols }, (_, i) => {
+          const x = i / Math.max(1, cols - 1)
+          return h * (0.51 - 0.21 * x + 0.08 * Math.sin(x * 8))
+        })
+      }
       ox = (w - (cols - 1) * pitch) / 2
       oy = (h - (rows - 1) * pitch) / 2
       colS = new Float32Array(NW * cols)
@@ -121,9 +130,12 @@ export function DotMatrixWater({ apiRef, mode = 'hero', mask = HERO_MASK }: Prop
       const aMax = WATER.alpha * 2.4
       for (let j = 0; j < rows; j++) {
         const y0 = oy + j * pitch
+        const distance = j / Math.max(1, rows - 1)
+        const projection = distance * (0.22 + 0.78 * distance)
         const depth = 0.72 + 0.28 * (y0 / h) // nearer rows slightly larger/darker
         for (let i = 0; i < cols; i++) {
           let x0 = ox + i * pitch
+          const surfaceY = mode === 'calm' ? horizon[i] + (h - horizon[i]) * projection : y0
           let v = 0, yPush = 0
           if (rect) {
             const ex = x0 - cx, ey = y0 - cy, d2 = ex * ex + ey * ey
@@ -140,7 +152,7 @@ export function DotMatrixWater({ apiRef, mode = 'hero', mask = HERO_MASK }: Prop
 
           for (let q = 0; q < n; q++) {
             const im = imps[q]
-            const ex = x0 - im.m.x, ey = y0 - im.m.y
+            const ex = x0 - im.m.x, ey = surfaceY - im.m.y
             let d: number, fall = 1
             if (im.m.kind === 'scan') {
               d = ex - im.front
@@ -165,7 +177,8 @@ export function DotMatrixWater({ apiRef, mode = 'hero', mask = HERO_MASK }: Prop
           let b = Math.round((a / aMax) * (BUCKETS - 1))
           if (!(b > 0)) b = 0 // also catches NaN
           else if (b >= BUCKETS) b = BUCKETS - 1
-          const y = y0 + yPush - v * WATER.lift * depth
+          const lift = mode === 'calm' ? 28 : WATER.lift
+          const y = surfaceY + yPush - v * lift * depth
           paths[b].moveTo(x0 + rad, y)
           paths[b].arc(x0, y, rad, 0, TAU)
         }
@@ -181,7 +194,7 @@ export function DotMatrixWater({ apiRef, mode = 'hero', mask = HERO_MASK }: Prop
     const tick = (now: number) => {
       raf = requestAnimationFrame(tick)
       // frame throttling: if a frame costs > 9ms on this device, render at ~30fps
-      if (slow && now - last < 31) return
+      if ((slow || mode === 'calm') && now - last < 31) return
       last = now
       const s = performance.now()
       draw(now)
@@ -207,7 +220,7 @@ export function DotMatrixWater({ apiRef, mode = 'hero', mask = HERO_MASK }: Prop
     // Pointer: coalesce movement into sparse local impulses; mouse only.
     let lx = -1e4, ly = -1e4, lt = 0
     const onMove = (e: PointerEvent) => {
-      if (e.pointerType !== 'mouse') return
+      if (reduced || !onScreen || e.pointerType !== 'mouse') return
       const now = performance.now()
       if (hover < 0.01) {
         // bulge was gone: start it at the pointer instead of sliding in from the old spot
@@ -236,15 +249,27 @@ export function DotMatrixWater({ apiRef, mode = 'hero', mask = HERO_MASK }: Prop
     })
     io.observe(canvas)
     resize()
-    if (!reduced) {
+    const onMotionChange = () => {
+      reduced = motionPreference.matches
+      if (reduced) {
+        stop()
+        impulses.length = 0
+        hover = 0
+        moved = -1e9
+        draw(performance.now())
+      } else start()
+    }
+    motionPreference.addEventListener('change', onMotionChange)
+    document.addEventListener('visibilitychange', onVis)
+    if (mode === 'hero') {
       addEventListener('pointermove', onMove, { passive: true })
       addEventListener('pointerdown', onDown, { passive: true })
       document.documentElement.addEventListener('pointerleave', onLeave)
-      document.addEventListener('visibilitychange', onVis)
-      start()
     }
+    start()
     return () => {
       stop()
+      motionPreference.removeEventListener('change', onMotionChange)
       ro.disconnect()
       io.disconnect()
       removeEventListener('pointermove', onMove)
