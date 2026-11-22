@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { at, useReveal } from '../useReveal'
 import { ProjectShowcase } from './ProjectShowcase'
@@ -29,7 +29,7 @@ export function ProjectsSection() {
         </p>
       </header>
 
-      <div className="flex flex-col gap-y-[clamp(5rem,13vh,9rem)] pb-[clamp(6rem,16vh,10rem)]">
+      <div className="project-gallery">
         {PROJECTS.map((p, i) => (
           <ProjectShowcase key={p.slug} project={p} index={i} />
         ))}

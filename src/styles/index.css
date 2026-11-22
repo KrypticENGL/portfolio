@@ -3,6 +3,7 @@
 @import './skills.css';
 @import './work.css';
 @import './contact.css';
+@import './anthology.css';
 
 @theme {
   --font-sans: 'Geist Variable', ui-sans-serif, system-ui, sans-serif;
@@ -41,4 +42,3 @@ html {
   clip-path: inset(0 0 100% 0 round 6px);
 }
 .rv-mask { clip-path: inset(0 0 0 0 round 6px); }
-

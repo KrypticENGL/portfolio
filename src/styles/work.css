@@ -163,61 +163,6 @@
 }
 .pj:hover .pv-shot { translate: 0 -4px; }
 
-.pv-preview { position: absolute; inset: 0; }
-.pv-dots {
-  position: absolute;
-  inset: 0;
-  background-image: radial-gradient(circle, rgba(11, 11, 11, 0.13) 0.9px, transparent 1.25px);
-  background-size: 11px 11px;
-  background-position: center;
-  mask-image: radial-gradient(ellipse at 60% 45%, #000 20%, rgba(0, 0, 0, 0.35) 75%);
-}
-.pv-motif {
-  position: absolute;
-  inset: 8% 4% 22% 18%;
-  transition: translate 0.6s var(--ease);
-}
-.pj:hover .pv-motif { translate: 0 -5px; }
-.pv-corner {
-  position: absolute;
-  top: 1.1rem;
-  font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  letter-spacing: 0.06em;
-  color: #8d8d89;
-}
-.pv-tl { left: 1.25rem; }
-.pv-tr { right: 1.25rem; }
-.pv-title {
-  position: absolute;
-  left: 1.1rem;
-  bottom: 0.7rem;
-  font-size: clamp(2.2rem, 5.4vw, 4.75rem);
-  font-weight: 600;
-  line-height: 1;
-  letter-spacing: -0.055em;
-  color: var(--color-ink);
-}
-
-.pv-stroke { stroke: var(--color-ink); stroke-width: 1.4; fill: var(--color-paper); }
-.pv-fill { fill: var(--color-ink); }
-.pv-node { fill: var(--color-paper); stroke: var(--color-ink); stroke-width: 1.4; }
-.pv-edge { stroke: rgba(11, 11, 11, 0.28); stroke-width: 1.2; }
-.pv-ring { fill: none; stroke-dasharray: 3 3; }
-.pv-mono { font-family: var(--font-mono); font-size: 11px; fill: var(--color-ink); }
-.pv-draw {
-  fill: none;
-  stroke: var(--color-ink);
-  stroke-width: 3.5;
-  stroke-linecap: round;
-  stroke-dasharray: 1;
-  stroke-dashoffset: 0;
-  transition: stroke-dashoffset 1.4s cubic-bezier(0.65, 0, 0.35, 1) 0.35s;
-}
-[data-reveal='wait'] .pv-draw { stroke-dashoffset: 1; }
-.pv-eq { transition: opacity 0.5s var(--ease); transition-delay: calc(0.3s + var(--k) * 45ms); }
-[data-reveal='wait'] .pv-eq { opacity: 0; }
-
 @media (prefers-reduced-motion: reduce) {
   .tl-line, .tl-node, .pj-arrow, .pj-title-text, .pv-motif, .pv-shot, .pv-draw, .pv-eq, .pj-btn-arrow { transition: none; }
 }

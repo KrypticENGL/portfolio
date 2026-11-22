@@ -28,14 +28,14 @@ export function AnimatedWords({ step, illRef }: { step: number; illRef: { curren
   const i = step % PHASES.length
   const Illustration = PHASE_ILLUSTRATIONS[i]
   return (
-    <div className="relative text-[clamp(3.6rem,8.2vw,7.5rem)] leading-none font-semibold tracking-[-0.055em] [--ill-h:calc(var(--ill-w)*0.5)] [--ill-w:clamp(184px,15.5vw,240px)]">
+    <div className="phase-player">
       <p className="sr-only">Develop, build, test, deploy.</p>
-      <div aria-hidden="true" className="relative h-[calc(1.12em+var(--ill-h)+0.9rem)] overflow-hidden lg:h-[1.12em]">
+      <div aria-hidden="true" className="phase-window">
         <AnimatePresence>
           {step >= 0 && (
             <motion.div
               key={step}
-              className="absolute inset-x-0 top-0 flex flex-col items-start gap-[0.9rem] lg:h-full lg:flex-row lg:items-center lg:gap-[0.26em]"
+              className="phase-step"
               variants={group}
               initial="initial"
               animate="animate"

@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { ArrowUpRight } from 'lucide-react'
 import { SkillIcon } from '../skills/icons'
@@ -45,11 +45,7 @@ export function ProjectShowcase({ project, index }: { project: Project; index: n
           <p className="rv mt-5 max-w-[46ch] text-[1.0625rem] leading-relaxed tracking-[-0.01em] text-neutral-700" style={at(2)}>
             {project.summary}
           </p>
-        ) : (
-          <p className="rv mt-5 font-mono text-[0.8125rem] text-neutral-400" style={at(2)}>
-            {'// description to come'}
-          </p>
-        )}
+        ) : null}
 
         {project.highlights?.length ? (
           <ul className="rv pj-highlights" style={at(3)}>
