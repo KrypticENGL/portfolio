@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from 'next'
 import type { ReactNode } from 'react'
-import { preload } from 'react-dom'
 import '@fontsource-variable/geist'
 import '@fontsource-variable/geist-mono'
 import '../styles/index.css'
@@ -36,7 +35,6 @@ const personJsonLd = {
 }
 
 export default function RootLayout({ children }: { children: ReactNode }) {
-  preload('/images/portrait.png', { as: 'image' })
   return (
     <html lang="en">
       <body>
