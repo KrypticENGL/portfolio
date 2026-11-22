@@ -11,7 +11,7 @@ export function ExperienceEntry({ entry, index }: { entry: Experience; index: nu
         <time dateTime={entry.start!}>{formatRange(entry)}</time>
       </p>
       <h3 className="tl-company mt-2 flex items-center gap-3 text-[clamp(1.35rem,2vw,1.75rem)] leading-tight font-semibold tracking-[-0.03em]">
-        {logo && <img src={logo} alt="" aria-hidden="true" className="h-7 w-7 rounded-[4px] object-contain" />}
+        {logo && <img src={logo} alt="" aria-hidden="true" loading="lazy" className="h-7 w-7 rounded-[4px] object-contain" />}
         {url ? (
           <a href={url} target="_blank" rel="noopener noreferrer">
             {company}

@@ -73,7 +73,7 @@ export type IconId = keyof typeof ICONS
 export function SkillIcon({ id, className }: { id: IconId; className?: string }) {
   const entry: Entry = ICONS[id]
   if ('logo' in entry)
-    return <img src={logoUrl(entry.logo)} alt="" aria-hidden="true" draggable={false} className={className} />
+    return <img src={logoUrl(entry.logo)} alt="" aria-hidden="true" loading="lazy" draggable={false} className={className} />
   const Glyph = entry.glyph
   return <Glyph aria-hidden="true" strokeWidth={1.5} className={className} />
 }

@@ -15,7 +15,7 @@ export function SkillsExplorer() {
   return (
     <div className="sx">
       <div className="sx-title">
-        <img src={logoUrl(ICONS.neovim.logo)} alt="" aria-hidden="true" className="sx-title-logo" />
+        <img src={logoUrl(ICONS.neovim.logo)} alt="" aria-hidden="true" loading="lazy" className="sx-title-logo" />
         <span>~/toolkit</span>
         <span className="sx-dim">skills.md</span>
       </div>
