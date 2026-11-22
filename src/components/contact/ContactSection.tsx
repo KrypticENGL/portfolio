@@ -8,7 +8,8 @@ import { useReveal } from '../useReveal'
 import { CopyButton } from './CopyButton'
 import { CONTACT } from './contact'
 
-export function ContactSection() {
+/** `resume`: URL of a CV to link, or null to hide the link (resolved at build time in app/page.tsx). */
+export function ContactSection({ resume }: { resume: string | null }) {
   const section = useReveal<HTMLElement>('-8%')
   const water = useRef<WaterAPI | null>(null)
 
@@ -38,7 +39,10 @@ export function ContactSection() {
           <CopyButton text={CONTACT.email} label="Copy email address" />
         </div>
         <div className="ct-directory">
-          <a href={`tel:${CONTACT.phone.tel}`} className="ct-link">{CONTACT.phone.display}</a>
+          <div className="ct-profiles">
+            <a href={`tel:${CONTACT.phone.tel}`} className="ct-link">{CONTACT.phone.display}</a>
+            {resume && <a href={resume} className="ct-link">Résumé (PDF)</a>}
+          </div>
           <nav aria-label="Social profiles" className="ct-profiles">
             {CONTACT.socials.map(profile => (
               <a key={profile.name} href={profile.href} target="_blank" rel="noopener noreferrer"

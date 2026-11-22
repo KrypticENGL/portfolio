@@ -27,6 +27,10 @@ export const EXPERIENCE: Experience[] = [
     start: '2026-02',
     end: null,
     location: 'Remote',
+    // TODO(Phanishwar): replace this generic line once you have answered:
+    //   1. Stack: which languages, frameworks, databases and infra do you use at MarketMaze?
+    //   2. What did you build: which service, API, feature or pipeline is yours?
+    //   3. One measurable result: latency, throughput, cost, uptime, users, or time saved.
     description: 'Helping with the backend of technical projects at MarketMaze.',
   },
   {
