@@ -99,7 +99,8 @@
   .cover-stage { justify-content: flex-start; padding-top: 2.5rem; }
   .cover-byline { margin-bottom: 1.15rem; }
   .cover h1 { font-size: 16.3vw; }
-  .cover-art { width: 88%; height: 63%; right: -13vw; }
+  /* in flow below the phase card (not absolute) so the portrait can never cover it on short screens */
+  .cover-art { position: relative; order: 1; right: auto; width: 88%; height: auto; flex: 1 0 16rem; align-self: flex-end; margin-right: -13vw; }
   .cover-disc { top: auto; bottom: 5%; left: 55%; transform: translateX(-50%); width: 93%; }
   .cover-phase { margin-top: clamp(1.6rem, 4vh, 3rem); margin-bottom: 1.5rem; }
   .phase-player { --ill-w: 11.5rem; font-size: 1.9rem; }
