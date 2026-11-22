@@ -10,6 +10,26 @@
   --color-paper: #f4f4f2;
   --color-ink: #0b0b0b;
   --font-mono: 'Geist Mono Variable', ui-monospace, monospace;
+  /* Darker than Tailwind's defaults so small text clears WCAG AA 4.5:1 on paper (4.64 / 5.23) */
+  --color-neutral-400: #6e6e6b;
+  --color-neutral-500: #666663;
+}
+
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 100;
+  padding: 0.6rem 1rem;
+  font: 0.8125rem var(--font-mono);
+  background: var(--color-ink);
+  color: var(--color-paper);
+  transform: translateY(-200%);
+}
+.skip-link:focus {
+  transform: none;
+  outline: 2px solid var(--color-ink);
+  outline-offset: 2px;
 }
 
 :root {

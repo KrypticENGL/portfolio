@@ -55,6 +55,8 @@ export function SkillCategoryNav({ categories, active, onSelect, idFor }: Props)
             id={idFor(c.id, 'tab')}
             aria-selected={selected}
             aria-controls={idFor(c.id, 'panel')}
+            // the visible label differs per breakpoint (file name / display name), so name the tab explicitly
+            aria-label={`${c.label}, ${c.skills.length} items`}
             tabIndex={selected ? 0 : -1}
             onClick={() => go(i)}
             className="sx-tab"
@@ -64,7 +66,7 @@ export function SkillCategoryNav({ categories, active, onSelect, idFor }: Props)
               <span className="sx-tab-file" aria-hidden="true">{c.file}/</span>
               <span className="sx-tab-name">{c.label}</span>
             </span>
-            <span className="sx-count" aria-label={`${c.skills.length} items`}>{c.skills.length}</span>
+            <span className="sx-count" aria-hidden="true">{c.skills.length}</span>
           </button>
         )
       })}

@@ -2,7 +2,7 @@
 
 .sk {
   --sx-line: rgba(11, 11, 11, 0.1);
-  --sx-mute: #8d8d89;
+  --sx-mute: #6b6b67; /* 5.2:1 on the explorer background */
   --sx-ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -123,7 +123,7 @@
 .sx-count {
   margin-left: auto;
   font-size: 0.6875rem;
-  color: #b4b4b0;
+  color: var(--sx-mute);
   font-variant-numeric: tabular-nums;
 }
 @media (min-width: 768px) {

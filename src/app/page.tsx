@@ -8,7 +8,8 @@ import { SkillsSection } from '../components/skills/SkillsSection'
 export default function Home() {
   return (
     <>
-      <main>
+      <a href="#main" className="skip-link">Skip to content</a>
+      <main id="main">
         <Hero />
         <SkillsSection />
         <ExperienceSection />

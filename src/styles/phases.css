@@ -8,9 +8,9 @@
 }
 
 .ph-card {
-  --ok: #4e7a5a; /* the one muted accent: success only */
+  --ok: #4a7556; /* the one muted accent: success only (4.8:1) */
   --ink: #0b0b0b;
-  --mute: #8d8d89;
+  --mute: #6b6b67; /* 4.9:1 on the card */
   --line: rgba(11, 11, 11, 0.11);
   flex: none;
   display: flex;
@@ -60,7 +60,7 @@
 .ph-gutter {
   color: #c4c4c0;
 }
-.ph-kw { color: #8d8d89; }
+.ph-kw { color: var(--mute); }
 .ph-op { color: #a8a8a4; }
 .ph-id { color: #3a3a38; }
 .ph-fn { color: var(--ink); font-weight: 500; }
