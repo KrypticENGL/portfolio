@@ -30,7 +30,7 @@
 .ct-line { display: block; overflow: hidden; padding-bottom: .09em; }
 .ct-line-in { display: block; transition: transform .95s var(--ease); }
 .ct-line + .ct-line { margin-top: -.06em; }
-.ct-stop { color: #ad321f; } /* the wordmark's red full stop */
+.ct-stop { color: var(--signal); } /* the wordmark's red full stop */
 .ct-line + .ct-line .ct-line-in { transition-delay: .14s; }
 [data-reveal='wait'] .ct-line-in { transform: translateY(110%); }
 .ct-description {
@@ -120,7 +120,8 @@
   .ct-title { font-size: clamp(2rem, 11.35vw, 4rem); }
   .ct-email { font-size: clamp(1rem, 5.15vw, 2rem); }
   .ct-description { max-width: 29ch; }
-  .ct-address { justify-content: space-between; margin-top: auto; padding-top: 3rem; }
+  /* one block anchored to the bottom of the scene; only the label sits apart at the top */
+  .ct-address { justify-content: space-between; margin-top: 2.5rem; }
   .ct-directory { column-gap: 1rem; }
   .ct-profiles { gap: 1rem; }
 }

@@ -33,6 +33,7 @@
 }
 
 :root {
+  --signal: #ad321f; /* the one accent: wordmark full stop, byline rule, arrows */
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 

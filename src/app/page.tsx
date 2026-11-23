@@ -5,6 +5,7 @@ import { SiteFooter } from '../components/contact/SiteFooter'
 import { ExperienceSection } from '../components/experience/ExperienceSection'
 import { Hero } from '../components/hero/Hero'
 import { ProjectsSection } from '../components/projects/ProjectsSection'
+import { SiteBar } from '../components/SiteBar'
 import { SkillsSection } from '../components/skills/SkillsSection'
 
 // The page is prerendered, so a new resume.pdf or RESUME_URL takes effect on the next build.
@@ -14,6 +15,7 @@ export default function Home() {
   return (
     <>
       <a href="#main" className="skip-link">Skip to content</a>
+      <SiteBar />
       <main id="main">
         <Hero />
         <SkillsSection />

@@ -2,6 +2,7 @@
 
 import { useCallback, useRef } from 'react'
 import { MotionConfig } from 'motion/react'
+import { SECTIONS } from '../SiteBar'
 import { AnimatedWords } from './AnimatedWords'
 import { DotMatrixWater, type WaterAPI } from './DotMatrixWater'
 import { Portrait } from './Portrait'
@@ -30,10 +31,9 @@ export function Hero() {
         <header className="cover-bar">
           <a className="cover-signature" href="#intro-title">KrypticENGL<span>.</span></a>
           <nav aria-label="Portfolio sections">
-            <a href="#toolkit">Toolkit</a>
-            <a href="#experience">Experience</a>
-            <a href="#work">Work</a>
-            <a href="#contact">Contact</a>
+            {SECTIONS.map((s) => (
+              <a key={s.href} href={s.href}>{s.label}</a>
+            ))}
           </nav>
         </header>
         <div className="cover-stage">
