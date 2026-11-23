@@ -25,6 +25,8 @@ export type Project = {
   motif: Motif
   /** status line shown in the preview corner */
   status?: string | null
+  /** listed compactly under "Also in progress" instead of as a full showcase */
+  brief?: boolean
 }
 
 /*
@@ -111,6 +113,7 @@ export const PROJECTS: Project[] = [
     repo: 'https://github.com/KrypticENGL/stonks',
     motif: 'none',
     status: null,
+    brief: true,
   },
   {
     slug: 'video-generation',
@@ -121,5 +124,6 @@ export const PROJECTS: Project[] = [
     live: null, // deployment URL to be added
     motif: 'frame',
     status: 'Coming soon',
+    brief: true,
   },
 ]

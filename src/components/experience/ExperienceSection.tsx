@@ -2,12 +2,14 @@
 
 import { at, useReveal } from '../useReveal'
 import { ExperienceTimeline } from './ExperienceTimeline'
-import { EXPERIENCE, isComplete } from './experience'
+import { EXPERIENCE, formatRange, isComplete } from './experience'
 
 /** 02 / Experience. Entries missing a company, role or start date are left out, never guessed. */
 export function ExperienceSection() {
   const ref = useReveal<HTMLElement>()
   const entries = EXPERIENCE.filter(isComplete)
+  const work = entries.filter((e) => !e.education)
+  const education = entries.filter((e) => e.education)
   if (!entries.length) return null
 
   return (
@@ -28,7 +30,21 @@ export function ExperienceSection() {
         </header>
 
         <div className="lg:pt-[3.1rem]">
-          <ExperienceTimeline entries={entries} />
+          {work.length > 0 && <ExperienceTimeline entries={work} />}
+          {education.length > 0 && (
+            <div className="rv tl-edu" style={at(work.length + 1)}>
+              <h3 className="tl-edu-title">Education</h3>
+              <ul>
+                {education.map((e) => (
+                  <li key={`${e.company}-${e.role}`}>
+                    {/* nbsp keeps the separator on the role's line when the company wraps */}
+                    <span className="tl-edu-role">{e.role}</span>{' ·'} {e.company}
+                    <time dateTime={e.start!} className="tl-edu-date">{formatRange(e)}</time>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
       </div>
     </section>

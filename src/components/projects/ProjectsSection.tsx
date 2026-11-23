@@ -1,8 +1,12 @@
 ﻿'use client'
 
 import { at, useReveal } from '../useReveal'
+import { ProjectLinks } from './ProjectLinks'
 import { ProjectShowcase } from './ProjectShowcase'
 import { PROJECTS } from './projects'
+
+const featured = PROJECTS.filter((p) => !p.brief)
+const brief = PROJECTS.filter((p) => p.brief)
 
 /** 03 / Work. */
 export function ProjectsSection() {
@@ -30,10 +34,33 @@ export function ProjectsSection() {
       </header>
 
       <div className="project-gallery">
-        {PROJECTS.map((p, i) => (
+        {featured.map((p, i) => (
           <ProjectShowcase key={p.slug} project={p} index={i} />
         ))}
       </div>
+
+      {brief.length > 0 && (
+        <section aria-labelledby="also-title" className="pj-also">
+          <h3 id="also-title" className="font-mono text-[0.75rem] tracking-[0.14em] text-neutral-500 uppercase">
+            Also in progress
+          </h3>
+          <ul>
+            {brief.map((p) => (
+              <li key={p.slug} className="pj-also-item">
+                <div className="min-w-0">
+                  <h4 className="text-[1.5rem] leading-tight font-semibold tracking-[-0.03em]">{p.title}</h4>
+                  {p.summary ? (
+                    <p className="mt-1 text-[0.9375rem] leading-relaxed text-neutral-700">{p.summary}</p>
+                  ) : (
+                    p.label && <p className="mt-1 font-mono text-[0.75rem] text-neutral-500">{p.label}</p>
+                  )}
+                </div>
+                <ProjectLinks project={p} />
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
     </section>
   )
 }

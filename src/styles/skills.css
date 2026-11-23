@@ -55,21 +55,18 @@
   .sx-body { grid-template-columns: 13.5rem minmax(0, 1fr); }
 }
 
-/* Category nav: horizontal tabs on small screens, a file tree from md up */
+/* Category nav: wrapping tabs on small screens (every category visible), a file tree from md up */
 .sx-nav {
   display: flex;
+  flex-wrap: wrap;
   gap: 0.25rem;
-  overflow-x: auto;
   padding: 0.5rem;
   border-bottom: 1px solid var(--sx-line);
-  scrollbar-width: none;
 }
-.sx-nav::-webkit-scrollbar { display: none; }
 @media (min-width: 768px) {
   .sx-nav {
     flex-direction: column;
     gap: 1px;
-    overflow: visible;
     padding: 0.6rem 0;
     border-bottom: 0;
     border-right: 1px solid var(--sx-line);

@@ -15,7 +15,7 @@ export type SkillCategory = {
   skills: Skill[]
 }
 
-/** Explorer groups. Every skill from the brief appears here or in INDEX below. */
+/** Explorer groups: the one place every skill is listed. */
 export const CATEGORIES: SkillCategory[] = [
   {
     id: 'languages',
@@ -81,30 +81,6 @@ export const CATEGORIES: SkillCategory[] = [
     skills: [
       { name: 'Neovim', icon: 'neovim', note: 'preferred editor' },
       { name: 'Short-lived Competitive Programming Career', icon: 'archive', note: 'status: archived' },
-    ],
-  },
-]
-
-/** The plain-text index: the brief's own grouping, always visible, no interaction needed. */
-export const INDEX: { label: string; items: string[] }[] = [
-  { label: 'Languages', items: ['C++', 'Rust', 'JavaScript', 'TypeScript', 'Python'] },
-  {
-    label: 'Frameworks & runtime',
-    items: ['React.js', 'Next.js', 'Expo', 'React Native', 'Node.js', 'Express.js', 'RESTful APIs'],
-  },
-  { label: 'Databases', items: ['MongoDB', 'PostgreSQL'] },
-  {
-    label: 'Capabilities',
-    items: [
-      'Website Design',
-      'Website Development',
-      'Deployment',
-      'Databases',
-      'Linux',
-      'Cloud Computing',
-      'Agentic AI',
-      'AI Automations',
-      'AI-Assisted Development',
     ],
   },
 ]

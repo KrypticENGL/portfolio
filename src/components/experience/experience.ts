@@ -17,6 +17,8 @@ export type Experience = {
   /** path under /public, only for a verified logo file */
   logo?: string | null
   url?: string | null
+  /** education entries (degree, university clubs) render as a compact list under the work timeline */
+  education?: boolean
 }
 
 export const EXPERIENCE: Experience[] = [
@@ -34,18 +36,20 @@ export const EXPERIENCE: Experience[] = [
     description: 'Helping with the backend of technical projects at MarketMaze.',
   },
   {
+    company: 'Amity University Patna',
+    role: 'Student, BCA',
+    start: '2025-08',
+    education: true,
+    end: null,
+    location: 'Patna, Bihar, India',
+  },
+  {
     company: 'Amity Institute of Information Technology',
     role: 'Techpreneur Club Member',
     kind: 'Amity University Patna',
     start: '2025-11',
+    education: true,
     end: null,
-  },
-  {
-    company: 'Amity University Patna',
-    role: 'Student, BCA',
-    start: '2025-08',
-    end: null,
-    location: 'Patna, Bihar, India',
   },
 ]
 
