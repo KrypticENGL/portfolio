@@ -111,7 +111,7 @@
   .cover { min-height: max(43rem,100svh); }
   .cover-bar { min-height: 4rem; flex-wrap: wrap; gap: 0 .75rem; }
   .cover-signature { font-size: 1.15rem; }
-  .cover-bar nav, .site-bar nav { gap: .7rem; font-size: .68rem; }
+  .cover-bar nav, .site-bar nav { gap: .65rem; font-size: .75rem; }
   .cover-stage { justify-content: flex-start; padding-top: 2.5rem; }
   .cover-byline { margin-bottom: 1.15rem; }
   .cover h1 { font-size: 16.3vw; }
@@ -122,8 +122,11 @@
   .phase-player { --ill-w: 11.5rem; font-size: 1.9rem; }
   .phase-window { width: calc(var(--ill-w) + .5rem); height: calc(var(--ill-h) + 1.42em); }
   .phase-step { grid-template-columns: 1fr; grid-template-rows: 1.3em auto; }
-  .cover-foot { min-height: 3.2rem; font-size: .62rem; }
-  .plate-meta { font-size: .62rem; inset: .75rem .75rem auto; }
+  .cover-foot { min-height: 3.2rem; font-size: .75rem; }
+  /* the name is already in the byline and site footer; give the two links the row */
+  .cover-foot > span { display: none; }
+  .cover-foot-links { flex: 1; justify-content: space-between; }
+  .plate-meta { font-size: .75rem; inset: .75rem .75rem auto; }
   .plate-title { left: .7rem; }
 }
 
