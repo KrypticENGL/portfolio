@@ -96,9 +96,10 @@ function InkStudy() {
       </g>
       <g ref={ink} fill="none" stroke="#a72818" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
-    <button className="ink-toggle" type="button" aria-pressed={drawing}
-      onClick={() => { ink.current?.replaceChildren(); setDrawing(!drawing) }}>
-      {drawing ? 'Clear & finish' : 'Try drawing'}
+    <button className="ink-toggle" type="button" data-active={drawing || undefined}
+      // finishing keeps the drawing; starting again begins on a clean surface
+      onClick={() => { if (!drawing) ink.current?.replaceChildren(); setDrawing(!drawing) }}>
+      {drawing ? 'Done' : 'Try drawing'}
     </button>
   </>
 }

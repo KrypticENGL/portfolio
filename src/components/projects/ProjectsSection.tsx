@@ -4,7 +4,7 @@ import { at, useReveal } from '../useReveal'
 import { ProjectShowcase } from './ProjectShowcase'
 import { PROJECTS } from './projects'
 
-/** 04 / Selected Work. */
+/** 03 / Work. */
 export function ProjectsSection() {
   const ref = useReveal<HTMLElement>()
   return (
@@ -12,7 +12,7 @@ export function ProjectsSection() {
       <div className="border-t border-ink/10" />
       <header ref={ref} className="pt-[clamp(5rem,14vh,9rem)] pb-[clamp(3.5rem,9vh,6rem)]">
         <p className="rv font-mono text-[0.75rem] tracking-[0.14em] text-neutral-500 uppercase" style={at(0)}>
-          04 / Selected Work
+          03 / Work
         </p>
         <h2
           id="work-title"

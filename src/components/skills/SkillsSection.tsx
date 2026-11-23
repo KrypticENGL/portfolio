@@ -5,7 +5,7 @@ import { at, useReveal } from '../useReveal'
 import { SkillsExplorer } from './SkillsExplorer'
 import { INDEX } from './skills'
 
-/** 02 / The Toolkit. */
+/** 01 / The Toolkit. */
 export function SkillsSection() {
   const ref = useReveal<HTMLElement>()
 
@@ -16,7 +16,7 @@ export function SkillsSection() {
       <div className="grid gap-y-14 pt-[clamp(5rem,15vh,9.5rem)] pb-[clamp(5rem,14vh,9rem)] lg:grid-cols-[38fr_62fr] lg:gap-x-[6vw]">
         <header className="flex flex-col">
           <p className="rv font-mono text-[0.75rem] tracking-[0.14em] text-neutral-500 uppercase" style={at(0)}>
-            02 / The Toolkit
+            01 / The Toolkit
           </p>
           <h2
             id="toolkit-title"

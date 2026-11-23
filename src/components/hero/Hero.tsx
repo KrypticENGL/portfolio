@@ -48,6 +48,9 @@ export function Hero() {
           <div className="cover-type">
             <p className="cover-byline">Phanishwar Lal</p>
             <h1 id="intro-title"><span>From</span> localhost<br /><i>to</i> <b>.com</b></h1>
+            <p className="cover-role">
+              Backend intern at MarketMaze and BCA student at Amity University Patna. I build native Windows tools in Rust, and web apps.
+            </p>
           </div>
           <div className="cover-phase">
             <AnimatedWords step={step} illRef={illRef} />
@@ -55,7 +58,10 @@ export function Hero() {
         </div>
         <div className="cover-foot">
           <span>Phanishwar Lal / KrypticENGL</span>
-          <a href="#work">Selected work <span aria-hidden="true">↓</span></a>
+          <div className="cover-foot-links">
+            <a href="#contact">Contact</a>
+            <a href="#work">Selected work <span aria-hidden="true">↓</span></a>
+          </div>
         </div>
       </section>
     </MotionConfig>

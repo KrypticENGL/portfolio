@@ -29,7 +29,8 @@
 }
 .ct-line { display: block; overflow: hidden; padding-bottom: .09em; }
 .ct-line-in { display: block; transition: transform .95s var(--ease); }
-.ct-line + .ct-line { color: #585855; margin-top: -.06em; }
+.ct-line + .ct-line { margin-top: -.06em; }
+.ct-stop { color: #ad321f; } /* the wordmark's red full stop */
 .ct-line + .ct-line .ct-line-in { transition-delay: .14s; }
 [data-reveal='wait'] .ct-line-in { transform: translateY(110%); }
 .ct-description {

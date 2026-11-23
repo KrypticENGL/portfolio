@@ -22,10 +22,10 @@ export function ContactSection({ resume }: { resume: string | null }) {
     <section ref={section} id="contact" aria-labelledby="contact-title" className="ct-scene">
       <DotMatrixWater apiRef={water} mode="calm" mask="ct-surface" />
       <div className="ct-content">
-        <p className="ct-label">05 / CONTACT</p>
+        <p className="ct-label">04 / CONTACT</p>
         <h2 id="contact-title" className="ct-title">
           <span className="ct-line"><span className="ct-line-in">Have an idea?</span></span>{' '}
-          <span className="ct-line"><span className="ct-line-in">Let&rsquo;s make it real.</span></span>
+          <span className="ct-line"><span className="ct-line-in">Let&rsquo;s make it real<span className="ct-stop">.</span></span></span>
         </h2>
         <p className="ct-description">
           An interesting project, a collaboration, or just a conversation about technology? My inbox is open.
